@@ -27,11 +27,8 @@ class BLEService: Service() {
             if (newState == BluetoothProfile.STATE_CONNECTED) {//See if we are connected
                 Log.i(TAG, "**ACTION_SERVICE_CONNECTED**$status")
                 broadcastUpdate(BLEConstants.ACTION_GATT_CONNECTED)//Go broadcast an intent to say we are connected
-                //                gatt.discoverServices();
-                //if(null == BLEConnectionManager.getInstance().getEmergencyGATT())
+                gatt.discoverServices()
                 mBluetoothGatt?.discoverServices()//Discover services on connected BLE device
-                ///else
-                //    broadcastUpdate(BLEConstants.ACTION_GATT_SERVICES_DISCOVERED);                       //Go broadcast an intent to say we have discovered services
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {//See if we are not connectedLog.i(TAG, "**ACTION_SERVICE_DISCONNECTED**" + status);
                 broadcastUpdate(BLEConstants.ACTION_GATT_DISCONNECTED)//Go broadcast an intent to say we are disconnected
             }
@@ -79,7 +76,6 @@ class BLEService: Service() {
                 Log.e(TAG, "**ACTION_DATA_WRITTEN**$characteristic")
                 broadcastUpdate(BLEConstants.ACTION_DATA_WRITTEN, characteristic)                   //Go broadcast an intent to say we have have written data
             }
-
         }
 
         override fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic?) {

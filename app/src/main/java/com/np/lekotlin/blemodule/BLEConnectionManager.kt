@@ -14,7 +14,7 @@ object BLEConnectionManager {
     private val TAG = "BLEConnectionManager"
     private var mBLEService: BLEService? = null
     private var isBind = false
-    private var mDataMDLPForEmergency: BluetoothGattCharacteristic? = null
+    private var mDataBLEForEmergency: BluetoothGattCharacteristic? = null
 
     private val mServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, service: IBinder) {
@@ -89,9 +89,9 @@ object BLEConnectionManager {
     }
 
     fun writeEmergencyGatt(value: ByteArray) {
-        if (mDataMDLPForEmergency != null) {
-            mDataMDLPForEmergency!!.value = value
-            writeMLDPCharacteristic(mDataMDLPForEmergency)
+        if (mDataBLEForEmergency != null) {
+            mDataBLEForEmergency!!.value = value
+            writeMLDPCharacteristic(mDataBLEForEmergency)
         }
     }
 
@@ -118,7 +118,7 @@ object BLEConnectionManager {
         }
 
         var uuid: String
-        mDataMDLPForEmergency = null
+        mDataBLEForEmergency = null
         val serviceList = mBLEService!!.getSupportedGattServices()
 
         if (serviceList != null) {
@@ -131,11 +131,11 @@ object BLEConnectionManager {
 
                         uuid = if (gattCharacteristic.uuid != null) gattCharacteristic.uuid.toString() else ""
 
-                        if (uuid.equals(mContext.resources.getString(R.string.char_uuid_emergency_gatt),
+                        if (uuid.equals(mContext.resources.getString(R.string.char_uuid_emergency_call),
                                         ignoreCase = true)) {
                             var newChar = gattCharacteristic
                             newChar = setProperties(newChar)
-                            mDataMDLPForEmergency = newChar
+                            mDataBLEForEmergency = newChar
                         }
                     }
                 }
