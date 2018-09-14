@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">LEKotlin</string>
+    <string name="location_permission_disabled">Location Permission Disabled</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="location_permission_not_granted">Location Permission Granted</string>
+    <string name="btn_scan">Scan</string>
+    <string name="no_device_found">No Device Found</string>
+
+    <string name="char_uuid_missed_connection">9bfb4669-1fe3-4b9a-8875-18d298ecba03</string>
+    <string name="char_uuid_emergency">3c02e2a5-bb87-4be0-ada5-526ef4c14aaa</string>
+    <string name="char_uuid_emergency_gatt">8c1d4d3a-3b3c-404f-a435-9529245ef2d0</string>
+    <string name="char_uuid_catch">75748f1d-daef-4fc1-b602-51c17c9d49c2</string>
+    <string name="char_uuid_catch_all">de09a622-fe20-4590-a92e-68e5aa2664dc</string>
+
+</resources>
