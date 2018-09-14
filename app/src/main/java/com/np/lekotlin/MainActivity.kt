@@ -14,13 +14,28 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.np.lekotlin.blemodule.*
 
-class MainActivity : AppCompatActivity(), OnDeviceScanListener {
+class MainActivity : AppCompatActivity(), OnDeviceScanListener, View.OnClickListener {
+
+    private lateinit var mBtnReadMissedChar: Button
+    private lateinit var mBtnReadBatteryLevel: Button
+    private lateinit var mBtnReadEmergency: Button
+    private lateinit var mBtnWriteEmergency: Button
+    private lateinit var mBtnWriteMissedConnection: Button
+    private lateinit var mBtnWriteBatteryLevel: Button
+    private lateinit var mTvResult: TextView
 
     override fun onScanCompleted(deviceDataList: BleDeviceData) {
 
+        //Initiate a dialog Fragment from here and ask the user to select his device
+        // If the application already know the Mac address, we can simply call connect device
+
+        BLEConnectionManager.connect(deviceDataList.mDeviceAddress)
     }
 
     private val REQUEST_LOCATION_PERMISSION = 2018
@@ -29,6 +44,25 @@ class MainActivity : AppCompatActivity(), OnDeviceScanListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mBtnReadMissedChar = findViewById(R.id.btn_read_missed_connection)
+        mBtnReadEmergency = findViewById(R.id.btn_read_emergency_gatt)
+        mBtnReadBatteryLevel = findViewById(R.id.btn_read_battery_level)
+        mBtnWriteEmergency = findViewById(R.id.btn_write_emergency)
+        mBtnWriteMissedConnection = findViewById(R.id.btn_write_missed_connection)
+        mBtnWriteBatteryLevel = findViewById(R.id.btn_write_battery)
+        mTvResult = findViewById(R.id.tv_result)
+
+        findViewById<View>(R.id.btn_scan).setOnClickListener(this)
+        mBtnReadMissedChar.setOnClickListener(this)
+        mBtnWriteEmergency.setOnClickListener(this)
+
+        mBtnReadEmergency.setOnClickListener(this)
+        mBtnReadBatteryLevel.setOnClickListener(this)
+
+        mBtnWriteBatteryLevel.setOnClickListener(this)
+        mBtnWriteMissedConnection.setOnClickListener(this)
+
         checkLocationPermission()
     }
 
@@ -208,6 +242,10 @@ class MainActivity : AppCompatActivity(), OnDeviceScanListener {
         super.onDestroy()
         BLEConnectionManager.disconnect()
         unRegisterServiceReceiver()
+    }
+
+    override fun onClick(v: View?) {
+
     }
 
 
