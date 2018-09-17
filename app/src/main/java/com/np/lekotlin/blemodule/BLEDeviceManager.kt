@@ -196,10 +196,10 @@ object BLEDeviceManager {
     }
 
     private fun scanFilters(): List<ScanFilter> {
-        val missedConnectionUUID = "9bfb4669-1fe3-4b9a-8875-18d298ecba03"
-        val emergencyUDID = "3C02E2A5-BB87-4BE0-ADA5-526EF4C14AAA"
-        val catchUDID = "75748f1d-daef-4fc1-b602-51c17c9d49c2"
-        val catchAllUDID = "de09a622-fe20-4590-a92e-68e5aa2664dc"
+        val missedConnectionUUID = ""// Your UUID
+        val emergencyUDID = ""// Your UUID
+        val catchUDID = ""// Your UUID
+        val catchAllUDID = ""// Your UUID
         val filter = ScanFilter.Builder().setServiceUuid(ParcelUuid.fromString(emergencyUDID)).build()
         val list = ArrayList<ScanFilter>(1)
         list.add(filter)
