@@ -18,30 +18,30 @@
         android:text="@string/btn_scan" />
 
     <Button
-        android:id="@+id/btn_read_missed_connection"
+        android:id="@+id/btn_read_connection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_scan"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
-        android:text="Read MISSED CONNECTION " />
+        android:text="Read CONNECTION " />
 
 
     <Button
-        android:id="@+id/btn_read_emergency_gatt"
+        android:id="@+id/btn_read_emergency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_read_missed_connection"
+        android:layout_below="@+id/btn_read_connection"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="READ EMERGENCY GATT" />
+        android:text="READ EMERGENCY" />
 
     <Button
-        android:id="@+id/btn_read_battery_level"
+        android:id="@+id/btn_read_battery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_read_emergency_gatt"
+        android:layout_below="@+id/btn_read_emergency"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="READ BATTERY" />
@@ -53,13 +53,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/btn_read_battery_level"
+        android:layout_below="@+id/btn_read_battery"
         android:layout_marginBottom="8dp"
         android:text="Write Emergency"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />
     <Button
-        android:id="@+id/btn_write_missed_connection"
+        android:id="@+id/btn_write_connection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -67,7 +67,7 @@
         android:layout_marginTop="8dp"
         android:layout_below="@+id/btn_write_emergency"
         android:layout_marginBottom="8dp"
-        android:text="Write Missed Connection"
+        android:text="Write Connection"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -78,7 +78,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/btn_write_missed_connection"
+        android:layout_below="@+id/btn_write_connection"
         android:layout_marginBottom="8dp"
         android:text="Write Battery Level"
         app:layout_constraintBottom_toBottomOf="parent"

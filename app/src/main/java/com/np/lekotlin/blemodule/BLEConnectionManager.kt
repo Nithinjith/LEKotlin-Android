@@ -1,6 +1,7 @@
 package com.np.lekotlin.blemodule
 
 import android.bluetooth.BluetoothGattCharacteristic
+import android.bluetooth.BluetoothGattCharacteristic.*
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -91,18 +92,80 @@ object BLEConnectionManager {
     fun writeEmergencyGatt(value: ByteArray) {
         if (mDataBLEForEmergency != null) {
             mDataBLEForEmergency!!.value = value
-            writeMLDPCharacteristic(mDataBLEForEmergency)
+            writeBLECharacteristic(mDataBLEForEmergency)
+        }
+    }
+
+    fun writeBatteryLevel(batteryLevel: String) {
+        if(batteryLevel != null){
+//            writeBLECharacteristic(mDataMDLPForMissedConnection);
+        }
+    }
+
+    fun writeMissedConnection(value: String) {
+        var gattCharacteristic =  BluetoothGattCharacteristic(java.util.UUID.
+                fromString(value), PROPERTY_WRITE, PERMISSION_WRITE)
+        if (gattCharacteristic != null) {
+            gattCharacteristic.setValue(value)
+            writeBLECharacteristic(gattCharacteristic)
+        }
+    }
+
+    fun writeEmergencyGatt(value: String) {
+        var mDataMDLPForEmergency =  BluetoothGattCharacteristic(java.util.UUID.
+                fromString(value), PROPERTY_READ, PERMISSION_READ)
+        if (mDataMDLPForEmergency != null) {
+            mDataMDLPForEmergency.setValue(value)
+            writeBLECharacteristic(mDataMDLPForEmergency)
+        }
+    }
+
+    /**
+     * Write BLE Characteristic.
+     */
+    private fun writeBLECharacteristic(characteristic: BluetoothGattCharacteristic?) {
+        if (null != characteristic) {
+            if (mBLEService != null) {
+                mBLEService?.writeCharacteristic(characteristic)
+            }
+        }
+    }
+
+    fun readMissedConnection(UUID: String) {
+        var gattCharacteristic =  BluetoothGattCharacteristic(java.util.UUID.
+                fromString(UUID), PROPERTY_READ, PERMISSION_READ)
+        if (gattCharacteristic != null) {
+            readMLDPCharacteristic(gattCharacteristic)
+        }
+    }
+
+    fun readBatteryLevel(UUID: String) {
+        var gattCharacteristic =  BluetoothGattCharacteristic(java.util.UUID.
+                fromString(UUID), PROPERTY_READ, PERMISSION_READ)
+        if (gattCharacteristic != null) {
+            readMLDPCharacteristic(gattCharacteristic)
+        }
+    }
+
+    fun readEmergencyGatt(UUID: String) {
+        var gattCharacteristic =  BluetoothGattCharacteristic(java.util.UUID.
+                fromString(UUID), PROPERTY_READ, PERMISSION_READ)
+        if (gattCharacteristic != null) {
+            readMLDPCharacteristic(gattCharacteristic)
         }
     }
 
     /**
      * Write MLDP Characteristic.
      */
-    private fun writeMLDPCharacteristic(characteristic: BluetoothGattCharacteristic?) {
-        if (null != characteristic && mBLEService != null) {
-                mBLEService!!.writeCharacteristic(characteristic)
+    private fun readMLDPCharacteristic(characteristic: BluetoothGattCharacteristic?) {
+        if (null != characteristic) {
+            if (mBLEService != null) {
+                mBLEService?.readCharacteristic(characteristic)
+            }
         }
     }
+
 
     /**
      * findBLEGattService
