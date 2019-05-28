@@ -22,9 +22,8 @@ object BLEDeviceManager {
     private var mBluetoothAdapter: BluetoothAdapter? = null
     private var mHandler: Handler? = null
     private var mOnDeviceScanListener: OnDeviceScanListener? = null
-    private lateinit var mLeScanCallback: BluetoothAdapter.LeScanCallback
+    private var mLeScanCallback: BluetoothAdapter.LeScanCallback? = null
     private var mIsContinuesScan: Boolean = false
-    private lateinit var mScanThread: Thread
 
     private fun isLollyPopOrAbove(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
@@ -153,38 +152,27 @@ object BLEDeviceManager {
         try {
             mIsContinuesScan = isContinuesScan
 
-            if (mScanThread != null) {
-                /**
-                 * Already Running - No need to rescan
-                 */
-                return
+            if (mBluetoothAdapter != null && mBluetoothAdapter!!.isEnabled) {
+                scan()
             }
-
-            mScanThread = Thread(mScanRunnable)
-            mScanThread.start()
-
             /**
              * Stop Scanning after a Period of Time
              * Set a 10 Sec delay time and Stop Scanning
              * collect all the available devices in the 10 Second
              */
-            if (!isContinuesScan) {
+           /* if (!isContinuesScan) {
                 mHandler?.postDelayed({
                     // Set a delay time to Scanning
                     stopScan(mDeviceObject)
                 }, BLEConstants.SCAN_PERIOD) // Delay Period
-            }
+            }*/
         } catch (e: Exception) {
             Log.e(TAG, e.message)
         }
 
     }
 
-    private val mScanRunnable = Runnable {
-        if (mBluetoothAdapter != null && mBluetoothAdapter!!.isEnabled) {
-            scan()
-        }
-    }
+
 
     private fun scan() {
         if (isLollyPopOrAbove()) {// Start Scanning For Lollipop devices
@@ -212,9 +200,7 @@ object BLEDeviceManager {
 
     private fun stopScan(data: BleDeviceData?) {
         try {
-            if (mScanThread != null) {
-                mScanThread.interrupt()
-            }
+
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
